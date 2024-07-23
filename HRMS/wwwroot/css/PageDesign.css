@@ -1,0 +1,56 @@
+﻿.AllBorder {
+    border-style: solid;
+    border-width: 1.5px;
+    border-color: burlywood;
+    padding: 15px 15px 10px 15px;
+    border-radius: 20px;
+}
+
+
+
+/*input {
+    width: 70%;
+    padding: 5px;
+    margin: 8px;
+    box-sizing: border-box;
+    margin-left: 20px;
+}*/
+
+
+.lable-st {
+    font-size: 100%;
+    font-weight: bold;
+}
+
+label {
+    font-size: 100%;
+    font-weight: bold;
+}
+
+.mid {
+    padding-top: 10px;
+}
+
+.scrolling {
+    max-height: 300px; /* Set a maximum height for the container */
+    overflow-y: auto; /* Enable vertical scrollbar when content overflows */
+    border: 1px solid #ada2a2; /* Optional: Add a border for visual clarity */
+    overflow-x: auto; /* Enable horizontal scrollbar when content overflows */
+    border-radius: 5px; /* Optional: Add border-radius for rounded corners */
+    padding: 10px; /* Optional: Add padding for better spacing */
+    padding-top: 0px;
+    text-align: center;
+}
+
+.table-header {
+    position: sticky;
+    top: 0;
+    background-color: #ada7a6; /* Optional background color for the header */
+    z-index: 1;
+    font-size: large;
+}
+
+.seperate{
+    border-bottom: solid;
+    border-width: 1px;
+}

@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <style>
+        .btn-custom {
+            background-color: yellowgreen; /* Set background color to yellow */
+            color: black; /* Set text color to black for contrast */
+            padding: 10px 15px; /* Add padding for better appearance */
+            text-decoration: none; /* Remove underline from the link */
+            border-radius: 5px; /* Add rounded corners */
+            font-weight: bold; /* Make the text bold */
+        }
+
+            .btn-custom:hover {
+                background-color: #f1c40f; /* Change background color on hover for a lighter shade */
+                color: black; /* Ensure text color remains black */
+            }
+        body {
+            background-color: #198754;
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .cover-container {
+            position: relative;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .cover-container .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            z-index: -1;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .lead {
+            font-size: 1.5rem;
+        }
+
+        .lead a {
+            color: #ffcc00;
+            text-decoration: none;
+        }
+
+        .lead a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const overlay = document.querySelector('.overlay');
+            const coverContainer = document.querySelector('.cover-container');
+
+            coverContainer.addEventListener('mouseover', () => {
+                overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
+            });
+
+            coverContainer.addEventListener('mouseout', () => {
+                overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.3)';
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="cover-container">
+        @RenderBody()
+    </div>
+</body>
+</html>

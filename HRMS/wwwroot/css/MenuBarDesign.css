@@ -1,0 +1,26 @@
+﻿
+.a-custom {
+    color: white;
+    text-decoration: none;
+    font-weight: 400;
+    display: block;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+    .a-custom:hover {
+        background-color: lawngreen;
+        color: #28a745;
+        text-decoration: none;
+    }
+
+    .a-custom:active {
+        background-color: #1e7e34;
+        color: white;
+    }
+
+    .a-custom:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+    }

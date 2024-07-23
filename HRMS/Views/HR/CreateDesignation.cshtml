@@ -1,0 +1,146 @@
+﻿@model HRMS.Models.Designation
+
+<div class="row" id="notify">
+    <div class="col-md-12">
+        <div class="form-group">
+            @Html.Raw(TempData["Notification"])
+        </div>
+    </div>
+</div>
+
+<div class="seperate">
+    <b><h5>Create Designation</h5></b>
+</div>
+<br />
+
+<form asp-action="DesignationSave" method="post">
+    @Html.AntiForgeryToken()
+    <div class="AllBorder">
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Designation Name</label>
+            <div class="col-sm-4">
+                <input asp-for="PK_DesignationId" type="hidden" />
+                <input asp-for="DesignationName" class="form-control" placeholder="Type Designation Name...">
+                <span asp-validation-for="DesignationName" class="text-danger"></span>
+            </div>
+            <label class="col-sm-1 col-form-label">Job Type</label>
+            <div class="col-sm-5 span-content">
+                <input class="form-check-input" type="radio" asp-for="JobType" value="FT" checked><span>Full Time</span>
+                <input class="form-check-input" type="radio" asp-for="JobType" value="PT"><span>Part Time</span>
+            </div>
+        </div>
+        <br />
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Is Active ?</label>
+            <div class="col-sm-4 mid">
+                <input asp-for="IsActive" type="checkbox" class="form-check-input" />
+            </div>
+            <label class="col-sm-1 col-form-label">Location</label>
+            <div class="col-sm-5 span-content">
+                <input class="form-check-input" type="radio" asp-for="Location" value="WFH">Work From Home
+                <input class="form-check-input" type="radio" asp-for="Location" value="WFO" checked>Work From Office
+                <input class="form-check-input" type="radio" asp-for="Location" value="HY">Hybrid
+            </div>
+        </div>
+        <br />
+        <div class="form-group row">
+            <div class="col-sm-12 text-center">
+                <button type="submit" class="btn btn-primary">@ViewBag.ButtonType</button>
+            </div>
+        </div>
+    </div>
+</form>
+<br />
+<div class="seperate">
+    <b><h5>Designation List</h5></b>
+</div>
+<br />
+@{
+    var designations = ViewBag.list as List<HRMS.Models.Designation>;
+}
+
+<div class="container scrolling">
+    <div class="row">
+        <table class="table">
+            <thead class="thead-dark table-header">
+                <tr>
+                    <th class="text-center">Designation</th>
+                    <th class="text-center">Job Type</th>
+                    <th class="text-center">Location</th>
+                    <th class="text-center">Is Active</th>
+                    <th class="text-center">Edit</th> 
+                    <th class="text-center">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (designations != null && designations.Count > 0)
+                {
+                    foreach (var designation in designations)
+                    {
+                                <tr>
+                                    <td>@designation.DesignationName</td>
+                                    <td>
+                                @if (designation.JobType == "FT")
+                                {
+                                                <span>Full Time</span>
+                                }
+                                else if (designation.JobType == "PT")
+                                {
+                                                <span>Part Time</span>
+                                }
+                                    </td>
+                                    <td>
+                                @if (designation.Location == "WFO")
+                                {
+                                                <span>Work From Office</span>
+                                }
+                                else if (designation.Location == "WFH")
+                                {
+                                                <span>Work From Home</span>
+                                }
+                                else if (designation.Location == "HY")
+                                {
+                                                <span>Hybrid</span>
+                                }
+                                    </td>
+                                    <td>@designation.IsActive</td>
+                                    <td>
+                                        <a asp-controller="HR" asp-action="EditDesignation" asp-route-id="@designation.PK_DesignationId">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <form asp-action="DeleteConfirmed" asp-controller="HR" method="post" class="d-inline">
+                                            <input type="hidden" name="id" value="@designation.PK_DesignationId" />
+                                            <button type="submit" class="btn btn-link p-0">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                    }
+                }
+                else
+                {
+                        <tr>
+                            <td class="text-danger fw-bold text-center" colspan="6">No Data Found.</td>
+                        </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<script>
+    window.onload = function () {
+        setInterval(function () {
+            $('#notify').fadeOut();
+        }, 3000);
+    }
+</script>

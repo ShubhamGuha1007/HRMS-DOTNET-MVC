@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/HomeLayout.cshtml";
+}
+<div class="navbar-brand-custom me-3">
+    <img src="~/logo.png" alt="Logo" height="60px" width="50px">
+</div>
+<h1 class="display-4">Welcome to HR Management System</h1>
+@if (User.Identity.IsAuthenticated)
+{
+    <p class="lead">Hello, <span style="color: yellow;">@User.Identity.Name</span>! You can now create vacancies, designations, and more.<br /> Click down the button to get to the dashboard.</p>
+    <a asp-controller="HR" asp-action="GenderSave" class="btn-custom">Click Here</a>
+}
+else
+{
+    <p class="lead">Please <a asp-area="Identity" asp-page="/Account/Register">Register</a> or <a asp-area="Identity" asp-page="/Account/Login">Login</a> to access more features.</p>
+}

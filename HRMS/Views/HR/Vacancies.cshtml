@@ -1,0 +1,138 @@
+﻿@model HRMS.Data.Vacancies
+
+<div class="row" id="notify">
+    <div class="col-md-12">
+        <div class="form-group">
+            @Html.Raw(TempData["Notification"])
+        </div>
+    </div>
+</div>
+
+<div class="seperate">
+    <b><h5>Create Vacancies</h5></b>
+</div>
+<br />
+
+<form asp-action="VacanciesSaveUpdate">
+    @Html.AntiForgeryToken()
+    <div class="AllBorder">
+        <div class="form-group row">
+            <input asp-for="Pk_VacanciesID" type="hidden" />
+            <label class="col-sm-2 col-form-label">Designation Name<span>*</span></label>
+            <div class="col-sm-4">
+                <select asp-for="Fk_DesignationId" asp-items="ViewBag.DesignationList" class="form-control"></select>
+            </div>
+            <label class="col-sm-1 col-form-label">Experience<span>*</span></label>
+            <div class="col-sm-5 span-content">
+                <select asp-for="Fk_ExperienceId" asp-items="ViewBag.ExperienceList" class="form-control"></select>
+            </div>
+        </div>
+        <br />
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">No Of Vacancies<span>*</span></label>
+            <div class="col-sm-4 span-content">
+                <input class="form-control" asp-for="TotalPost" placeholder="No of Vacancies... ">
+                @Html.ValidationMessageFor(model => model.TotalPost, "", new { @class = "text-danger" })
+            </div>
+            <label class="col-sm-1 col-form-label">Technology<span>*</span></label>
+            <div class="col-sm-5 mid">
+                <input class="form-control" asp-for="Technology" placeholder="Type Technology Name... ">
+                @Html.ValidationMessageFor(model => model.Technology, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Is Active?</label>
+            <div class="col-sm-4 span-content">
+                <input class="form-check-input" asp-for="IsActive">
+            </div>
+            <label class="col-sm-1 col-form-label">Remarks</label>
+            <div class="col-sm-5 mid">
+                <textarea class="form-control" asp-for="Remarks" placeholder="Remarks..."></textarea>
+            </div>
+        </div>
+        <br />
+        <div class="form-group row">
+            <div class="col-sm-12 text-center">
+                <button type="submit" class="btn btn-primary">@ViewBag.ButtonText</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+<div class="seperate">
+    <b><h5>Vacancies List</h5></b>
+</div>
+<br />
+@{
+    IEnumerable<dynamic> AllData = ViewBag.VacanciesList as IEnumerable<dynamic>;
+}
+
+<div class="container scrolling">
+    <div class="row">
+        <table class="table">
+            <thead class="thead-dark table-header">
+                <tr>
+                    <th class="text-center">Designation(Post)</th>
+                    <th class="text-center">Experience</th>
+                    <th class="text-center">Total Vacancies</th>
+                    <th class="text-center">Technology</th>
+                    <th class="text-center">Is Active</th>
+                    <th class="text-center">Edit</th>
+                    <th class="text-center">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    if (AllData != null && AllData.Any())
+                    {
+                        foreach (var i in AllData)
+                        {
+                            <tr>
+                                <td>@i.DesignationName</td>
+                                <td>@i.Experience</td>
+                                <td>@i.TotalPost</td>
+                                <td>@i.Technology</td>
+                                <td>@i.IsActive</td>
+                                <td>
+                                    <a asp-controller="HR" asp-action="EditVacancy" asp-route-id="@i.Pk_VacanciesID">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <form asp-controller="HR" asp-action="DeleteVacancy" class="d-inline" asp-route-id="@i.Pk_VacanciesID" method="post" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                        <button type="submit" class="btn btn-link p-0">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td class="text-danger fw-bold" colspan="7">No Data Found.</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    window.onload = function () {
+        setInterval(function () {
+            $('#notify').fadeOut();
+        }, 5000);
+    }
+</script>
+
+<style>
+    span {
+        color: red;
+    }
+</style>

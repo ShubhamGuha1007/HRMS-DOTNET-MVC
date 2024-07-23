@@ -1,0 +1,117 @@
+﻿@model HRMS.Models.Gender
+
+
+@* @using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+
+<h5>
+    Session Data Testing:
+</h5>
+
+<p>UserName</p>@HttpContextAccessor?.HttpContext?.Session.GetString("UserName");
+<p>Password:</p>@HttpContextAccessor?.HttpContext?.Session.GetInt32("Password");
+<br />
+ *@
+<div class="seperate">
+    <b><h5>Create Gender</h5></b>
+</div>
+<br />
+
+<div class="row" id="notify">
+    <div class="col-md-12">
+        <div class="form-group">
+            @Html.Raw(TempData["Notification"])
+        </div>
+    </div>
+</div>
+
+<form asp-action="GenderSaveDetails">
+    <div class="AllBorder">
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Gender</label>
+            <div class="col-sm-4">
+                <input asp-for="Pk_GenderId" type="hidden" />
+                <input asp-for="GenderName" class="form-control" placeholder="Type Gender...">
+                <span asp-validation-for="GenderName" class="text-danger"></span>
+            </div>
+            <label class="col-sm-2 col-form-label">Alias</label>
+            <div class="col-sm-4">
+                <input asp-for="Alias" class="form-control" placeholder="Type Alias...">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Is Active?</label>
+            <div class="col-sm-4 mid">
+                <input asp-for="isActive" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-12 text-center">
+                <button type="submit" class="btn btn-primary">@ViewBag.ButtonType</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<br />
+<div class="seperate">
+    <b><h5>Gender List</h5></b>
+</div>
+<br />
+@{
+    var genders = ViewBag.gn as List<HRMS.Models.Gender>;
+}
+
+<div class="container scrolling">
+    <div class="row">
+        <table class="table">
+            <thead class="thead-dark table-header">
+                <tr>
+                    <th class="text-center">Gender</th>
+                    <th class="text-center">Is Active</th>
+                    <th class="text-center">Edit</th>
+                    <th class="text-center">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    if (genders.Count > 0)
+                    {
+                        foreach (var i in genders)
+                        {
+                            <tr>
+                                <td class="text-center">@i.GenderName</td>
+                                <td class="text-center">@i.isActive</td>
+                                <td class="text-center">
+                                    <a asp-controller="HR" asp-action="Edit" asp-route-id="@i.Pk_GenderId"><i class="fa-solid fa-pen-to-square"></i></a>
+                                </td>
+                                <td class="text-center">
+                                    <form asp-action="Delete" asp-controller="HR" method="post" class="d-inline">
+                                        <input type="hidden" name="id" value="@i.Pk_GenderId" />
+                                        <button type="submit" class="btn btn-link p-0">
+                                            <i class="fa fa-trash"></i>
+                            </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr><td class="text-danger fw-bold">No Data Found.</td></tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    window.onload = function () {
+        setInterval(function () {
+            $('#notify').fadeOut();
+        }, 3000);
+    }
+</script>

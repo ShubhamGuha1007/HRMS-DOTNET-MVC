@@ -1,0 +1,62 @@
+﻿
+
+
+
+@* <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-success" style="padding: 15px;">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+       
+        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style="color: #ffffff; letter-spacing: 1px; text-transform: uppercase; margin-left: -8px; margin-top: 16px; font-size: 1.5rem;">HR Management System</a>
+        <div class="navbar-brand-custom" style="color: #ffffff; font-size: 2rem; font-weight: bold; letter-spacing: 2px;">
+            <img src="~/logo.png" style="float: right;" height="50" width="50"/>
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</nav>
+ *@
+
+
+
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-success" style="padding: 15px;">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"
+           style="color: #ffffff; letter-spacing: 1px; text-transform: uppercase; margin-left: -8px; margin-top: 16px; font-size: 1.5rem;">
+            HR Management System
+        </a>
+
+        <div class="navbar-brand-custom" style="color: #ffffff; font-size: 2rem; font-weight: bold; letter-spacing: 2px;">
+            <img src="~/logo.png" style="float: right;" height="50" width="50" />
+        </div>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+            <ul class="navbar-nav flex-grow-1">
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</nav>
